@@ -34,7 +34,7 @@ public class Market implements QueueBehaviour, MarketBehaviour {
         // for (Acthor acthor : acthors) {
         //     System.out.println(acthor);
         // }
-        
+
     }
 
 
@@ -49,9 +49,14 @@ public class Market implements QueueBehaviour, MarketBehaviour {
     //покинуть очереь
     @Override
     public void releaseFromQueue(Acthor acthor) {
-        acthor.setMakeOrder(false);
-        acthor.setTakeOrder(true);
-        System.out.println(acthor.getName() + " покинул очередь");
+        if (acthor.isTakeOrder == true) {
+            acthor.setMakeOrder(false);
+            acthor.setTakeOrder(true);
+            System.out.println(acthor.getName() + " покинул очередь");
+        } else {
+            System.out.println(acthor.getName() + " не получил заказ");
+        }
+        
         
     }
 

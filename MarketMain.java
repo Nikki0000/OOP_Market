@@ -53,7 +53,12 @@ public class MarketMain {
         System.out.println(actor1.getName() + " получил заказ: " + actor1.isTakeOrder());
         System.out.println(actor2.getName() + " получил заказ: " + actor2.isTakeOrder());
         System.out.println(actor3.getName() + " получил заказ: " + actor3.isTakeOrder());
-        
+
+        //выходит из очереди
+        market1.releaseFromQueue(actor1);
+        market1.releaseFromQueue(actor2);
+        market1.releaseFromQueue(actor3);
+
         //покидает магазин
         market1.releaseFromMarket(actor2);
         market1.releaseFromMarket(actor3);
@@ -62,6 +67,12 @@ public class MarketMain {
         System.out.println(market1.getActhors());
         
         market1.update();
+
+
+        market1.releaseFromMarket(actor1);
+        System.out.println(market1.getActhors());
+        market1.update();
+        
 
 
     }
