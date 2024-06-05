@@ -34,6 +34,7 @@ public class Market implements QueueBehaviour, MarketBehaviour {
         // for (Acthor acthor : acthors) {
         //     System.out.println(acthor);
         // }
+        
     }
 
 
