@@ -19,14 +19,14 @@ public class Human extends Acthor {
     //возвращает, готов ли сделать заказ
     @Override
     public boolean isMakeOrder() {
-        System.out.println("Готов сделать заказ?:");
+        //System.out.println("Готов сделать заказ?: " + isMakeOrder);
         return isMakeOrder;
     }
 
     //возвращает, получил ли заказ
     @Override
     public boolean isTakeOrder() {
-        System.out.println("Получил заказ?:");
+        //System.out.println("Получил заказ?:" + isTakeOrder);
         return isTakeOrder;
     }
 

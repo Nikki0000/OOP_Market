@@ -20,14 +20,20 @@ public class Market implements QueueBehaviour, MarketBehaviour {
     @Override
     public void releaseFromMarket(Acthor acthor) {
         acthors.remove(acthor);
-        //System.out.println(acthors.);
+        System.out.println(acthor.name + ": Вышел из магазина");
     }
 
     //обновляем состояние магазина
     @Override
     public void update() {
         System.out.println("Продукты: ");
-        System.out.println(products);
+        for (Product product : products) {
+            System.out.println(product);
+        }
+        // System.out.println("Посетители: ");
+        // for (Acthor acthor : acthors) {
+        //     System.out.println(acthor);
+        // }
     }
 
 
@@ -36,20 +42,25 @@ public class Market implements QueueBehaviour, MarketBehaviour {
     public void takeInQueue(Acthor acthor) {
         // устанавливаем готовность сделать заказ - true
         acthor.setMakeOrder(true);
+        System.out.println(acthor.getName() + " встал в очередь для заказа");
     }
 
     //покинуть очереь
     @Override
     public void releaseFromQueue(Acthor acthor) {
+        acthor.setMakeOrder(false);
         acthor.setTakeOrder(true);
+        System.out.println(acthor.getName() + " покинул очередь");
+        
     }
 
     //сделать заказ
     @Override
     public void takeOrders(Acthor acthor, String name) {
         //берем первый продукт и удаляем его
-        if (acthors.contains(acthor) && acthor.isMakeOrder == true) {
+        if (acthors.contains(acthor) && acthor.isMakeOrder()) {
             System.out.println(acthor.getName() + " заказал " + name);
+            acthor.setMakeOrder(true);
         } else {
             System.out.println(acthor.getName() + " не готов сделать");
         }
@@ -59,18 +70,23 @@ public class Market implements QueueBehaviour, MarketBehaviour {
     // забрать заказ
     @Override
     public void giveOrders(Acthor acthor, String name) {
-        if (acthors.contains(acthor) && acthor.isMakeOrder == true) {
+        if (acthors.contains(acthor) && acthor.isTakeOrder == false && acthor.isMakeOrder == true) {
+            Product productToRemove = null;
             for (Product product : products) {
                 if (product.getName().equals(name)) {
-                    // выводим параметры найденного продукта
-                    System.out.println("Product have name " + name);
-                    System.out.println("");
-                    //удаляем найденный продукт из списка
-                    products.remove(product);
-                    acthor.isTakeOrder = true;
+                    productToRemove = product;
                     break;
                 }
             }
+            if(productToRemove != null) {
+                products.remove(productToRemove);
+                acthor.setTakeOrder(true);
+                System.out.println(acthor.getName() + " получил заказ " + name);
+            } else {
+                System.out.println("Продукт " + name + " не найден");
+            }
+        } else {
+            System.out.println(acthor.getName() + " не готов получить заказ");
         }
         
     }

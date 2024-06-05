@@ -11,8 +11,8 @@ public class MarketMain {
         Market market1 = new Market();
 
         Product p1 = new Product("Milk", 20, LocalDate.of(2024, 6, 5));
-        Product p2 = new Product("Bread", 20, LocalDate.of(2024, 6, 5));
-        Product p3 = new Product("Sugar", 20, LocalDate.of(2024, 6, 5));
+        Product p2 = new Product("Bread", 15, LocalDate.of(2024, 6, 4));
+        Product p3 = new Product("Sugar", 18, LocalDate.of(2024, 6, 3));
 
 
 
@@ -26,7 +26,7 @@ public class MarketMain {
 
         // добавляем продукты
         market1.addProducts(List.of(p3, p1, p2));
-        // выводим продкуты
+        // выводим инфо
         market1.update();
 
 
@@ -38,27 +38,30 @@ public class MarketMain {
 
         // делаем заказ
         market1.takeOrders(actor1, "Bread");
+        market1.takeOrders(actor2, "Sugar");
         market1.takeOrders(actor3, "Milk");
-
-        //сделал заказ?
-        //System.out.println(actor1.isMakeOrder());
+        
         
         //забирает продукт
         market1.giveOrders(actor1, "Bread");
+        market1.giveOrders(actor2, "Sugar");
         market1.giveOrders(actor3, "Milk");
-        // выводим продкуты
+        // выводим инфо
         market1.update();
 
-        //получил заказ?
-        //System.out.println(actor1.isTakeOrder());
+        // Проверяем, получил ли заказ
+        System.out.println(actor1.getName() + " получил заказ: " + actor1.isTakeOrder());
+        System.out.println(actor2.getName() + " получил заказ: " + actor2.isTakeOrder());
+        System.out.println(actor3.getName() + " получил заказ: " + actor3.isTakeOrder());
         
         //покидает магазин
+        market1.releaseFromMarket(actor2);
         market1.releaseFromMarket(actor3);
 
         //выводим кто остался
         System.out.println(market1.getActhors());
         
-
+        market1.update();
 
 
     }
